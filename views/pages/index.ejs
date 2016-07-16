@@ -1,17 +1,18 @@
 <% include ../partials/header.ejs %>
-  <div>
-    <div aria-hidden="false" aria-labelledby="prompt-heading-id" aria-describedby="prompt-message-wrapper" role="alertdialog" class="slds-modal slds-modal--prompt slds-fade-in-open">
-      <div class="slds-modal__container slds-modal--prompt" role="document" id="prompt-message-wrapper" tabindex="0">
-        <div class="slds-modal__header slds-theme--error slds-theme--alert-texture">
-          <h2 class="slds-text-heading--medium" id="prompt-heading-id">Uhhhh Woops!</h2>
-        </div>
-        <div class="slds-modal__content slds-p-around--medium">
-          <div>
-            <p>You've entered an application under extremely active development. It does NOTHING at this time. Hang on.</p>
-          </div>
+  <div class="slds-grid slds-wrap slds-grid--pull-padded slds-grid--vertical-stretch">
+    <div class="slds-col--padded slds-size--1-of-2 slds-medium-size--5-of-6 slds-large-size--8-of-12">
+      <div class="slds-panel slds-grid slds-grid--vertical slds-nowrap">
+        <div class="slds-panel__section">
+          <div class="slds-text-heading--medium">Posts By Location</div>
         </div>
       </div>
     </div>
-    <div class="slds-backdrop slds-backdrop--open"></div>
+    <div class="slds-col--padded slds-size--1-of-2 slds-medium-size--1-of-6 slds-large-size--4-of-12">
+      <div class="slds-panel slds-grid slds-grid--vertical slds-nowrap">
+        <div class="slds-panel__section">
+          <div class="slds-text-heading--medium">Posts By Date</div>
+        </div>
+      </div>
+    </div>
   </div>
 <% include ../partials/footer.ejs %>
