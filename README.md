@@ -1,6 +1,6 @@
-# 7/19/2016 Hackathon Stuff.
+# Mystic Chat.
 
-A silly geolocation based HTML5 chat app.
+Created for the 7/19/2016 NU Hackathon. A silly geolocation based HTML5 chat app. Literally does nothing yet, it's 8AM give me a break.
 
 # License 
 
