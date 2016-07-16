@@ -50,14 +50,21 @@ function addMarkerWithInfoWindow(latitude, longitude, text) {
 	circle.bindTo('center', youMarker, 'position');
 }
 
-function highlightMessage(messageId) {
+function highlightMessage(marker) {
+	// Change highlight.
 	$('.m-posts article').removeClass('slds-theme--alt-inverse');
-	$('#msg-' + messageId).addClass('slds-theme--alt-inverse');
+	$('#msg-' + marker.title).addClass('slds-theme--alt-inverse');
+
+	// Center on marker.
+	var latLng = marker.getPosition();
+	map.setCenter(latLng);
 }
 
 function addMessageToMap(pos, title) {
+	// Pokeball icon.
 	var markerImage = '/images/pokeball.png';
 
+	// Build marker.
     var marker = new google.maps.Marker({       
         position: pos, 
         map: map,
@@ -65,12 +72,14 @@ function addMessageToMap(pos, title) {
         title: title    
     }); 
 
+    // Add click listener.
     google.maps.event.addListener(marker, 'click', function() { 
-       highlightMessage(marker.title);
+       highlightMessage(marker);
     }); 
 }
 
 function addMessagesToMap() {
+	// Adds all messages in the page as map markers with a Pokeball.
 	for (var i = 0; i < messagesToDisplay.length; i++) {
 		// Latitude / longitude object.
 		var markerLatLng = new google.maps.LatLng({ 
