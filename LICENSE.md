@@ -1,9 +1,3 @@
-# 7/19/2016 Hackathon Stuff.
-
-A silly geolocation based HTML5 chat app.
-
-# License 
-
 The MIT License (MIT)
 Copyright (c) 2016 Craig Ceremuga
 
