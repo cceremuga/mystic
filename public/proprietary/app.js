@@ -34,8 +34,19 @@ function addMarkerWithInfoWindow(latitude, longitude, text) {
         youWindow.open(map, youMarker);
     });
 
-    //Open Window.
+    // Open Window.
     youWindow.open(map, youMarker);
+
+    // Add circle of 5 mile radius.
+	var circle = new google.maps.Circle({
+	    map: map,
+	    radius: 8046.72,  // 5 miles in meters
+	    strokeColor: '#7F8DE1',
+	    strokeWeight: 4,
+	    fillOpacity: .1
+	});
+
+	circle.bindTo('center', youMarker, 'position');
 }
 
 // Initializes the map w/ geolocation.
