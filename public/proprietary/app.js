@@ -50,17 +50,35 @@ function addMarkerWithInfoWindow(latitude, longitude, text) {
 	circle.bindTo('center', youMarker, 'position');
 }
 
+function highlightMessage(messageId) {
+	$('.m-posts article').removeClass('slds-theme--alt-inverse');
+	$('#msg-' + messageId).addClass('slds-theme--alt-inverse');
+}
+
+function addMessageToMap(pos, title) {
+	var markerImage = '/images/pokeball.png';
+
+    var marker = new google.maps.Marker({       
+        position: pos, 
+        map: map,
+        icon: markerImage,
+        title: title    
+    }); 
+
+    google.maps.event.addListener(marker, 'click', function() { 
+       highlightMessage(marker.title);
+    }); 
+}
+
 function addMessagesToMap() {
 	for (var i = 0; i < messagesToDisplay.length; i++) {
+		// Latitude / longitude object.
 		var markerLatLng = new google.maps.LatLng({ 
 			lat: messagesToDisplay[i].x, 
 			lng: messagesToDisplay[i].y
 		});
 
-		var messageMarker = new google.maps.Marker({
-	        position: markerLatLng,
-	        map: map
-	    });
+		addMessageToMap(markerLatLng, messagesToDisplay[i].id);
 	}
 }
 
