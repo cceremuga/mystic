@@ -43,7 +43,8 @@ function addMarkerWithInfoWindow(latitude, longitude, text) {
 	    radius: 8046.72,  // 5 miles in meters
 	    strokeColor: '#7F8DE1',
 	    strokeWeight: 4,
-	    fillOpacity: .1
+	    fillOpacity: .1,
+	    fillColor: '#00396B'
 	});
 
 	circle.bindTo('center', youMarker, 'position');
@@ -73,6 +74,12 @@ function initMap() {
 
 	    // Hide loader.
 	    $('#m-loader').fadeOut();
+	}, function error(msg) { 
+		alert('Please enable GPS, location access.');  
+  	}, {
+		maximumAge: 600000, 
+		timeout: 7000, 
+		enableHighAccuracy: true
 	});
 }
 
