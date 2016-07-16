@@ -1,18 +1,217 @@
 <% include ../partials/header.ejs %>
-  <div class="slds-grid slds-wrap slds-grid--pull-padded slds-grid--vertical-stretch">
-    <div class="slds-col--padded slds-size--1-of-2 slds-medium-size--5-of-6 slds-large-size--8-of-12">
-      <div class="slds-panel slds-grid slds-grid--vertical slds-nowrap">
-        <div class="slds-panel__section">
-          <div class="slds-text-heading--medium">Posts By Location</div>
-        </div>
+<div class="slds-grid slds-wrap slds-grid--pull-padded slds-grid--vertical-stretch">
+  <div class="slds-col--padded slds-size--1-of-2 slds-medium-size--5-of-6 slds-large-size--8-of-12">
+    <div class="slds-panel slds-grid slds-grid--vertical slds-nowrap">
+      <div class="slds-panel__section">
+        <div class="slds-text-heading--medium">Posts By Location</div>
       </div>
     </div>
-    <div class="slds-col--padded slds-size--1-of-2 slds-medium-size--1-of-6 slds-large-size--4-of-12">
-      <div class="slds-panel slds-grid slds-grid--vertical slds-nowrap">
-        <div class="slds-panel__section">
-          <div class="slds-text-heading--medium">Posts By Date</div>
+  </div>
+  <div class="slds-col--padded slds-size--1-of-2 slds-medium-size--1-of-6 slds-large-size--4-of-12">
+    <div class="slds-panel slds-grid slds-grid--vertical slds-nowrap">
+      <div class="slds-panel__section">
+        <div class="slds-text-heading--medium">Posts By Date</div>
+        <div class="m-posts slds-m-top--medium slds-scrollable--y" id="posts-by-date">
+          <article class="slds-media slds-comment slds-hint-parent">
+            <div class="slds-media__figure">
+              <div class="slds-avatar slds-avatar--circle slds-avatar--small">
+                <a href="javascript:void(0);" title="Trainer Alex">
+                  <img src="/assets/images/avatar1.jpg" alt="Trainer Alex" />
+                </a>
+              </div>
+            </div>
+            <div class="slds-media__body">
+              <div class="slds-grid slds-grid--align-spread slds-has-flexi-truncate">
+                <p class="slds-truncate"><a href="javascript:void(0);" title="Trainer Alex">Trainer Alex</a> -
+                  <span class="slds-text-body--small">16hr Ago</span>
+                </p>
+              </div>
+              <div class="slds-comment__content slds-text-longform">
+                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Dap sociis natoque penatibus eta.</p>
+              </div>
+            </div>
+          </article>
+          <article class="slds-media slds-comment slds-hint-parent">
+            <div class="slds-media__figure">
+              <div class="slds-avatar slds-avatar--circle slds-avatar--small">
+                <a href="javascript:void(0);" title="Trainer Alex">
+                  <img src="/assets/images/avatar1.jpg" alt="Trainer Alex" />
+                </a>
+              </div>
+            </div>
+            <div class="slds-media__body">
+              <div class="slds-grid slds-grid--align-spread slds-has-flexi-truncate">
+                <p class="slds-truncate"><a href="javascript:void(0);" title="Trainer Alex">Trainer Alex</a> -
+                  <span class="slds-text-body--small">16hr Ago</span>
+                </p>
+              </div>
+              <div class="slds-comment__content slds-text-longform">
+                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Dap sociis natoque penatibus eta.</p>
+              </div>
+            </div>
+          </article>
+          <article class="slds-media slds-comment slds-hint-parent">
+            <div class="slds-media__figure">
+              <div class="slds-avatar slds-avatar--circle slds-avatar--small">
+                <a href="javascript:void(0);" title="Trainer Alex">
+                  <img src="/assets/images/avatar1.jpg" alt="Trainer Alex" />
+                </a>
+              </div>
+            </div>
+            <div class="slds-media__body">
+              <div class="slds-grid slds-grid--align-spread slds-has-flexi-truncate">
+                <p class="slds-truncate"><a href="javascript:void(0);" title="Trainer Alex">Trainer Alex</a> -
+                  <span class="slds-text-body--small">16hr Ago</span>
+                </p>
+              </div>
+              <div class="slds-comment__content slds-text-longform">
+                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Dap sociis natoque penatibus eta.</p>
+              </div>
+            </div>
+          </article>
+          <article class="slds-media slds-comment slds-hint-parent">
+            <div class="slds-media__figure">
+              <div class="slds-avatar slds-avatar--circle slds-avatar--small">
+                <a href="javascript:void(0);" title="Trainer Alex">
+                  <img src="/assets/images/avatar1.jpg" alt="Trainer Alex" />
+                </a>
+              </div>
+            </div>
+            <div class="slds-media__body">
+              <div class="slds-grid slds-grid--align-spread slds-has-flexi-truncate">
+                <p class="slds-truncate"><a href="javascript:void(0);" title="Trainer Alex">Trainer Alex</a> -
+                  <span class="slds-text-body--small">16hr Ago</span>
+                </p>
+              </div>
+              <div class="slds-comment__content slds-text-longform">
+                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Dap sociis natoque penatibus eta.</p>
+              </div>
+            </div>
+          </article>
+          <article class="slds-media slds-comment slds-hint-parent">
+            <div class="slds-media__figure">
+              <div class="slds-avatar slds-avatar--circle slds-avatar--small">
+                <a href="javascript:void(0);" title="Trainer Alex">
+                  <img src="/assets/images/avatar1.jpg" alt="Trainer Alex" />
+                </a>
+              </div>
+            </div>
+            <div class="slds-media__body">
+              <div class="slds-grid slds-grid--align-spread slds-has-flexi-truncate">
+                <p class="slds-truncate"><a href="javascript:void(0);" title="Trainer Alex">Trainer Alex</a> -
+                  <span class="slds-text-body--small">16hr Ago</span>
+                </p>
+              </div>
+              <div class="slds-comment__content slds-text-longform">
+                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Dap sociis natoque penatibus eta.</p>
+              </div>
+            </div>
+          </article>
+          <article class="slds-media slds-comment slds-hint-parent">
+            <div class="slds-media__figure">
+              <div class="slds-avatar slds-avatar--circle slds-avatar--small">
+                <a href="javascript:void(0);" title="Trainer Alex">
+                  <img src="/assets/images/avatar1.jpg" alt="Trainer Alex" />
+                </a>
+              </div>
+            </div>
+            <div class="slds-media__body">
+              <div class="slds-grid slds-grid--align-spread slds-has-flexi-truncate">
+                <p class="slds-truncate"><a href="javascript:void(0);" title="Trainer Alex">Trainer Alex</a> -
+                  <span class="slds-text-body--small">16hr Ago</span>
+                </p>
+              </div>
+              <div class="slds-comment__content slds-text-longform">
+                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Dap sociis natoque penatibus eta.</p>
+              </div>
+            </div>
+          </article>
+          <article class="slds-media slds-comment slds-hint-parent">
+            <div class="slds-media__figure">
+              <div class="slds-avatar slds-avatar--circle slds-avatar--small">
+                <a href="javascript:void(0);" title="Trainer Alex">
+                  <img src="/assets/images/avatar1.jpg" alt="Trainer Alex" />
+                </a>
+              </div>
+            </div>
+            <div class="slds-media__body">
+              <div class="slds-grid slds-grid--align-spread slds-has-flexi-truncate">
+                <p class="slds-truncate"><a href="javascript:void(0);" title="Trainer Alex">Trainer Alex</a> -
+                  <span class="slds-text-body--small">16hr Ago</span>
+                </p>
+              </div>
+              <div class="slds-comment__content slds-text-longform">
+                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Dap sociis natoque penatibus eta.</p>
+              </div>
+            </div>
+          </article>
+          <article class="slds-media slds-comment slds-hint-parent">
+            <div class="slds-media__figure">
+              <div class="slds-avatar slds-avatar--circle slds-avatar--small">
+                <a href="javascript:void(0);" title="Trainer Alex">
+                  <img src="/assets/images/avatar1.jpg" alt="Trainer Alex" />
+                </a>
+              </div>
+            </div>
+            <div class="slds-media__body">
+              <div class="slds-grid slds-grid--align-spread slds-has-flexi-truncate">
+                <p class="slds-truncate"><a href="javascript:void(0);" title="Trainer Alex">Trainer Alex</a> -
+                  <span class="slds-text-body--small">16hr Ago</span>
+                </p>
+              </div>
+              <div class="slds-comment__content slds-text-longform">
+                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Dap sociis natoque penatibus eta.</p>
+              </div>
+            </div>
+          </article>
+          <article class="slds-media slds-comment slds-hint-parent">
+            <div class="slds-media__figure">
+              <div class="slds-avatar slds-avatar--circle slds-avatar--small">
+                <a href="javascript:void(0);" title="Trainer Alex">
+                  <img src="/assets/images/avatar1.jpg" alt="Trainer Alex" />
+                </a>
+              </div>
+            </div>
+            <div class="slds-media__body">
+              <div class="slds-grid slds-grid--align-spread slds-has-flexi-truncate">
+                <p class="slds-truncate"><a href="javascript:void(0);" title="Trainer Alex">Trainer Alex</a> -
+                  <span class="slds-text-body--small">16hr Ago</span>
+                </p>
+              </div>
+              <div class="slds-comment__content slds-text-longform">
+                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Dap sociis natoque penatibus eta.</p>
+              </div>
+            </div>
+          </article>
+          <article class="slds-media slds-comment slds-hint-parent">
+            <div class="slds-media__figure">
+              <div class="slds-avatar slds-avatar--circle slds-avatar--small">
+                <a href="javascript:void(0);" title="Trainer Alex">
+                  <img src="/assets/images/avatar1.jpg" alt="Trainer Alex" />
+                </a>
+              </div>
+            </div>
+            <div class="slds-media__body">
+              <div class="slds-grid slds-grid--align-spread slds-has-flexi-truncate">
+                <p class="slds-truncate"><a href="javascript:void(0);" title="Trainer Alex">Trainer Alex</a> -
+                  <span class="slds-text-body--small">16hr Ago</span>
+                </p>
+              </div>
+              <div class="slds-comment__content slds-text-longform">
+                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Dap sociis natoque penatibus eta.</p>
+              </div>
+            </div>
+          </article>
+        </div>
+        <div class="slds-publisher slds-publisher--discussion slds-m-top--medium">
+          <label for="comment-text-input2" class="slds-assistive-text">Post a message…</label>
+          <textarea id="comment-text-input2" class="slds-publisher__input slds-textarea slds-text-longform" placeholder="Post a message…"></textarea>
+          <div class="slds-publisher__actions slds-grid slds-grid--align-spread">
+            <button class="slds-button slds-button--brand">Post</button>
+          </div>
         </div>
       </div>
     </div>
   </div>
+</div>
 <% include ../partials/footer.ejs %>
