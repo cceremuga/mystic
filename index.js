@@ -25,6 +25,11 @@ app.get('/', function(request, response) {
   	  	console.error(err);
   	  	response.send("Error " + err);
   	  } else {
+  	  	// Do nasty stuff with dates here for now...
+  	  	for (var i = 0; i < result.rows.length; i++) {
+  	  		result.rows[i].relativetimestamp = moment(result.rows[i].timestamp).fromNow();
+  	  	}
+
   	  	// Render the home page with the records.
   	  	response.render('pages/index', {
   	  		messages: result.rows
