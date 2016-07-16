@@ -9,7 +9,7 @@
     "start": "node index.js"
   },
   "dependencies": {
-    "pg": "6.0.2",
+    "pg": "4.x",
     "ejs": "2.4.2",
     "express": "4.14.0"
   },
