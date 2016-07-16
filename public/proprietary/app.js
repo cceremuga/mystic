@@ -50,6 +50,20 @@ function addMarkerWithInfoWindow(latitude, longitude, text) {
 	circle.bindTo('center', youMarker, 'position');
 }
 
+function addMessagesToMap() {
+	for (var i = 0; i < messagesToDisplay.length; i++) {
+		var markerLatLng = new google.maps.LatLng({ 
+			lat: messagesToDisplay[i].x, 
+			lng: messagesToDisplay[i].y
+		});
+
+		var messageMarker = new google.maps.Marker({
+	        position: markerLatLng,
+	        map: map
+	    });
+	}
+}
+
 // Initializes the map w/ geolocation.
 function initMap() {
 	// Build the map.
@@ -66,11 +80,14 @@ function initMap() {
 	    // Center.
 	    centerOnPoint(position.coords.latitude, position.coords.longitude);
 
-	    // Marker.
+	    // Your marker.
 	    addMarkerWithInfoWindow(position.coords.latitude, position.coords.longitude, 'This is you!');
 
 	    // Zoom.
     	map.setZoom(13);
+
+    	// Add messages.
+    	addMessagesToMap();
 
 	    // Hide loader.
 	    $('#m-loader').fadeOut();
