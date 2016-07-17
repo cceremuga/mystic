@@ -49,11 +49,25 @@ app.post('/message', function(request, response) {
   // Sanitize input
   request.body.message = validator.escape(request.body.message);
   request.body.username = validator.escape(request.body.username);
+  var formattedPoint = '(' + request.body.latitude + ',' + request.body.longitude + ')';
 
-  console.log(request.body.username);
-  console.log(request.body.message);
+  var ip = request.headers['x-forwarded-for'] || request.connection.remoteAddress;
 
-  response.send(request.body);
+  // Disgusting insert.
+  pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+    client.query('INSERT INTO messages (ip, location, message, username) VALUES($1, $2, $3, $4) RETURNING id', 
+    	[ip, formattedPoint, request.body.message, request.body.username], 
+      function(err, result) {
+      	  done();
+
+          if (err) {
+            console.log(err);
+            response.send('Error!');
+          } else {
+            response.send('Success!');
+          }
+        }); 
+  });
 });
 
 // Start server.

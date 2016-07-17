@@ -10,48 +10,11 @@ function centerOnPoint(latitude, longitude) {
 	map.setCenter(updatedLatLng);
 }
 
-function addMarkerWithInfoWindow(latitude, longitude, text) {
-	// Make a window.
-	var youWindow = new google.maps.InfoWindow({
-        content: text
-    });
-
-	// Lat/long for pin.
-	var markerLatLng = new google.maps.LatLng({ 
-		lat: latitude, 
-		lng: longitude
-	});
-
-	// Add pin.
-	var youMarker = new google.maps.Marker({
-        position: markerLatLng,
-        map: map,
-        title: 'You!'
-    });
-
-    // Add a listener in case they close it like a fool.
-    youMarker.addListener('click', function() {
-        youWindow.open(map, youMarker);
-    });
-
-    // Open Window.
-    youWindow.open(map, youMarker);
-
-    // Add circle of 5 mile radius.
-	var circle = new google.maps.Circle({
-	    map: map,
-	    radius: 8046.72,  // 5 miles in meters
-	    strokeColor: '#7F8DE1',
-	    strokeWeight: 4,
-	    fillOpacity: .1,
-	    fillColor: '#00396B'
-	});
-
-	circle.bindTo('center', youMarker, 'position');
-}
-
 function highlightMessage(marker) {
 	highlightMessageById('msg-' + marker.title);
+
+	var latLng = marker.getPosition();
+	map.setCenter(latLng);
 }
 
 function highlightMessageById(id) {
@@ -107,8 +70,21 @@ function initMap() {
 	    // Center.
 	    centerOnPoint(position.coords.latitude, position.coords.longitude);
 
-	    // Your marker.
-	    addMarkerWithInfoWindow(position.coords.latitude, position.coords.longitude, 'This is you!');
+	    // Add circle of 5 mile radius.
+		var circleCenter = new google.maps.LatLng({ 
+			lat: position.coords.latitude, 
+			lng: position.coords.longitude
+		});
+
+		var circle = new google.maps.Circle({
+		    map: map,
+		    radius: 8046.72,  // 5 miles in meters
+		    strokeColor: '#7F8DE1',
+		    strokeWeight: 4,
+		    fillOpacity: .1,
+		    fillColor: '#00396B',
+		    center: circleCenter
+		});
 
 	    // Zoom.
     	map.setZoom(13);
@@ -163,7 +139,10 @@ function sendMessage() {
 	        contentType: 'application/json',
             url: '/message',						
             success: function(data) {
-                console.log('success');
+                if (data === 'Success!') {
+                	location.reload();
+                }
+
 			    messageInput.val('');
 			    spinner.hide();
             }, error: function(jqXHR, textStatus, errorThrown) {
