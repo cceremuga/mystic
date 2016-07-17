@@ -119,7 +119,59 @@ function initMap() {
 	    // Hide loader.
 	    $('#m-loader').fadeOut();
 	}, function error(msg) { 
-		alert('Please enable GPS, location access.');  
+		// Catastrophic failure.
+		console.log(msg);
+  	}, {
+		maximumAge: 600000, 
+		timeout: 7000, 
+		enableHighAccuracy: true
+	});
+}
+
+function sendMessage() {
+	// Super mediocre validation.
+	var messageInput = $('#message-input');
+
+	if (messageInput.val() === null || messageInput.val() === '') {
+		return;
+	}
+
+	// Start the process.
+	var spinner = $('#m-spinner');
+
+	spinner.show();
+
+	// Geolocate.
+	navigator.geolocation.getCurrentPosition(function(position) {
+		var messageInput = $('#message-input');
+
+		// Build object to post.
+	    var postData = { 
+	    	latitude: position.coords.latitude,
+	    	longitude: position.coords.longitude,
+	    	message: messageInput.val()
+	    };
+
+	    // Post to API.
+	    $.ajax( {
+			type: 'POST',
+			data: JSON.stringify(postData),
+	        contentType: 'application/json',
+            url: '/message',						
+            success: function(data) {
+                console.log('success');
+			    messageInput.val('');
+			    spinner.hide();
+            }, error: function(jqXHR, textStatus, errorThrown) {
+            	console.log(errorThrown);
+			    messageInput.val('');
+			    spinner.hide();
+            }
+        });
+	}, function error(msg) { 
+		// Catastrophic failure.
+		console.log(msg);
+		spinner.hide();
   	}, {
 		maximumAge: 600000, 
 		timeout: 7000, 
@@ -152,5 +204,18 @@ $(document).ready(function() {
 
 		// Center on marker.
 		map.setCenter(markerLatLng);
+	});
+
+	// Message send.
+	$('#post-button').click(function(e) {
+		e.preventDefault();
+		sendMessage();
+	});
+
+	$('#message-input').keypress(function(e) {
+	    if(e.which == 13) {
+	    	e.preventDefault();
+	        sendMessage();
+	    }
 	});
 });

@@ -2,12 +2,16 @@ var express = require('express');
 var app = express();
 var pg = require('pg');
 var moment = require('moment');
+var bodyParser = require('body-parser');
 
 // Set listening port.
 app.set('port', (process.env.PORT || 5000));
 
 // Set directory for static resources.
 app.use(express.static(__dirname + '/public'));
+
+// jSON body parser.
+app.use(bodyParser.json());
 
 // Master templates.
 app.set('views', __dirname + '/views');
@@ -37,6 +41,11 @@ app.get('/', function(request, response) {
   	  }
   	});
   });  
+});
+
+// Posting messages.
+app.post('/message', function(request, response) {
+  response.send(request.body);
 });
 
 // Start server.

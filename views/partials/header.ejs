@@ -4,21 +4,27 @@
     <% include ../partials/head.ejs %>
   </head>
   <body>
-  	  <div id="m-loader">
-		  <div aria-hidden="false" aria-labelledby="prompt-heading-id" aria-describedby="prompt-message-wrapper" role="alertdialog" class="slds-modal slds-modal--prompt slds-fade-in-open">
-		    <div class="slds-modal__container slds-modal--prompt" role="document" id="prompt-message-wrapper" tabindex="0">
-		      <div class="slds-modal__header slds-theme--info slds-theme--alert-texture">
-		        <h2 class="slds-text-heading--medium" id="prompt-heading-id">Hang On!</h2>
-		      </div>
-		      <div class="slds-modal__content slds-p-around--medium">
-		        <div>
-		          <p>There's some technical stuff going on in the background, we'll be ready for you in just a moment. Make sure you allow us to know where you are located, then we will handle the rest.</p>
-		        </div>
-		      </div>
-		    </div>
-		  </div>
-		  <div class="slds-backdrop slds-backdrop--open"></div>
-  	  </div>
+  	<div id="m-loader">
+  		<div aria-hidden="false" aria-labelledby="prompt-heading-id" aria-describedby="prompt-message-wrapper" role="alertdialog" class="slds-modal slds-modal--prompt slds-fade-in-open">
+  			<div class="slds-modal__container slds-modal--prompt" role="document" id="prompt-message-wrapper" tabindex="0">
+  				<div class="slds-modal__header slds-theme--info slds-theme--alert-texture">
+  					<h2 class="slds-text-heading--medium" id="prompt-heading-id">Hang On!</h2>
+  				</div>
+  				<div class="slds-modal__content slds-p-around--medium">
+  					<div>
+  						<p>There's some technical stuff going on in the background, we'll be ready for you in just a moment. Make sure you allow us to know where you are located, then we will handle the rest.</p>
+  					</div>
+  				</div>
+  			</div>
+  		</div>
+  		<div class="slds-backdrop slds-backdrop--open"></div>
+  	</div>
+  	<div id="m-spinner" class="slds-spinner_container slds-hide">
+	  <div class="slds-spinner slds-spinner--large" aria-hidden="false" role="alert">
+	    <div class="slds-spinner__dot-a"></div>
+	    <div class="slds-spinner__dot-b"></div>
+	  </div>
+	</div>
 	  <div class="slds-page-header" role="banner">
 		  <div class="slds-media slds-media--center">
 			  <div class="slds-media__figure">
