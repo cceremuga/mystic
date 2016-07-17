@@ -29,11 +29,12 @@ app.get('/messages', function(request, response) {
   var url_parts = url.parse(request.url, true);
   var query = url_parts.query;
 
-  console.log(query);
-
   pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-  	// Retrieve all messages.
-  	client.query('SELECT * FROM messages ORDER BY Id DESC LIMIT 10', function(err, result) {
+  	// Retrieve all messages including harversine calculation.
+  	client.query('SELECT * FROM messages ' + 
+  		'WHERE public.geodistance(location[0], location[1], $1, $2) <= 5.0 ' + 
+  		'ORDER BY Id DESC LIMIT 10', 
+  		[query.latitude, query.longitude], function(err, result) {
   	  done();
 
   	  // Throw all errors into console / page.
