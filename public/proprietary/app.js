@@ -5,6 +5,8 @@ var timeout = false;
 var delta = 200;
 var markersDisplayed = [];
 var lastLatLng = { };
+var numMiles = 5;
+var circle;
 
 // Centers the map.
 function centerOnPoint(latitude, longitude) {
@@ -88,6 +90,24 @@ function addMessagesToMap(data) {
 	});
 }
 
+function addRadiusFromLastLatLng() {
+    // Add circle of x mile radius.
+	var circleCenter = new google.maps.LatLng({ 
+		lat: lastLatLng.latitude, 
+		lng: lastLatLng.longitude
+	});
+
+	circle = new google.maps.Circle({
+	    map: map,
+	    radius: numMiles * 1609.34, // Miles to meters.
+	    strokeColor: '#7F8DE1',
+	    strokeWeight: 4,
+	    fillOpacity: .1,
+	    fillColor: '#00396B',
+	    center: circleCenter
+	});
+}
+
 // Initializes the map w/ geolocation.
 function initMap() {
 	var spinner = $('#m-spinner');
@@ -113,21 +133,8 @@ function initMap() {
 	    	longitude: position.coords.longitude
 	    };
 
-	    // Add circle of 5 mile radius.
-		var circleCenter = new google.maps.LatLng({ 
-			lat: position.coords.latitude, 
-			lng: position.coords.longitude
-		});
-
-		var circle = new google.maps.Circle({
-		    map: map,
-		    radius: 8046.72,  // 5 miles in meters
-		    strokeColor: '#7F8DE1',
-		    strokeWeight: 4,
-		    fillOpacity: .1,
-		    fillColor: '#00396B',
-		    center: circleCenter
-		});
+	    // Add radius circle.
+	    addRadiusFromLastLatLng();
 
 	    // Zoom.
     	map.setZoom(13);
@@ -221,14 +228,14 @@ function resizeClient() {
 	var windowHeight = window.innerHeight;
 
 	// Size map.
-	$('#posts-by-location').height(windowHeight - 212 + 'px');
+	$('#posts-by-location').height(windowHeight - 219 + 'px');
 
 	if (typeof google !== 'undefined') {
 		google.maps.event.trigger(map, 'resize');
 	}
 
 	// Size post box.
-	$('#posts-by-date').height(windowHeight - 260 + 'px');
+	$('#posts-by-date').height(windowHeight - 265 + 'px');
 }
 
 function attachListeners() {
@@ -253,6 +260,9 @@ function attachListeners() {
 function loadMessages() {
 	var spinner = $('#m-spinner');
 	spinner.show();
+
+	// Update miles
+	lastLatLng.miles = numMiles;
 
 	$.ajax({
 		type: 'GET',
@@ -306,12 +316,20 @@ $(document).ready(function() {
 	    }
 	});
 
-	// Resize hacks
+	// Resize hacks.
 	$(window).resize(function() {
 	    rtime = new Date();
 	    if (timeout === false) {
 	        timeout = true;
 	        setTimeout(resizeend, delta);
 	    }
+	});
+
+	// Miles change.
+	$('#select-miles').change(function() {
+	    numMiles = $(this).val();
+	    loadMessages();
+	    circle.setMap(null);
+	    addRadiusFromLastLatLng();
 	});
 });

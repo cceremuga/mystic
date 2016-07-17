@@ -32,9 +32,9 @@ app.get('/messages', function(request, response) {
   pg.connect(process.env.DATABASE_URL, function(err, client, done) {
   	// Retrieve all messages including harversine calculation.
   	client.query('SELECT * FROM messages ' + 
-  		'WHERE public.geodistance(location[0], location[1], $1, $2) <= 5.0 ' + 
+  		'WHERE public.geodistance(location[0], location[1], $1, $2) <= $3 ' + 
   		'ORDER BY Id DESC LIMIT 10', 
-  		[query.latitude, query.longitude], function(err, result) {
+  		[query.latitude, query.longitude, query.miles], function(err, result) {
   	  done();
 
   	  // Throw all errors into console / page.
