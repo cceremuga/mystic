@@ -1,4 +1,5 @@
 var map;
+var lastOpened;
 
 // Centers the map.
 function centerOnPoint(latitude, longitude) {
@@ -21,6 +22,31 @@ function highlightMessageById(id) {
 	// Change highlight.
 	$('.m-posts article').removeClass('slds-theme--alt-inverse');
 	$('#' + id).addClass('slds-theme--alt-inverse');
+
+	showInfoWindowAtMarkerForId(id, buildInfoWindowForId(id));
+}
+
+function showInfoWindowAtMarkerForId(id, infoWindow) {
+	if (typeof lastOpened !== 'undefined' && lastOpened !== null) {
+		lastOpened.close();
+	}
+
+	$.each(markersDisplayed, function(index, item) {
+		if ('msg-' + item.title === id) {
+			infoWindow.open(map, item);
+			lastOpened = infoWindow;
+		}
+	});
+}
+
+function buildInfoWindowForId(id) {
+	var messageElement = $('#' + id);
+
+	var infoWindow = new google.maps.InfoWindow({
+      content: '<strong>' + messageElement.data('username') + '</strong> ' + messageElement.data('timestamp')
+    });
+
+    return infoWindow;
 }
 
 function addMessageToMap(pos, title) {
@@ -38,7 +64,10 @@ function addMessageToMap(pos, title) {
     // Add click listener.
     google.maps.event.addListener(marker, 'click', function() { 
        highlightMessage(marker);
-    }); 
+    });
+
+    // Throw it into the list of all markers.
+    markersDisplayed.push(marker);
 }
 
 function addMessagesToMap() {

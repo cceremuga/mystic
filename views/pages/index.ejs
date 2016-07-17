@@ -7,10 +7,10 @@
         <div class="slds-m-top--medium" id="posts-by-location"></div>
         <script>
             var messagesToDisplay = [];
-            var mapPoint;
+            var markersDisplayed = [];
 
             <% messages.forEach(function(msg) { %>
-              mapPoint = {
+              var mapPoint = {
                 id: '<%= msg.id %>',
                 x: <%= msg.location.x %>,
                 y: <%= msg.location.y %>
@@ -28,7 +28,9 @@
         <div class="slds-text-heading--medium">Posts By Date</div>
         <div class="m-posts slds-m-top--medium slds-scrollable--y" id="posts-by-date">
           <% messages.forEach(function(msg) { %>
-              <article id="msg-<%= msg.id %>" class="slds-media slds-comment slds-hint-parent slds-p-around--small" data-latitude="<%= msg.location.x %>" data-longitude="<%= msg.location.y %>">
+              <article id="msg-<%= msg.id %>" class="slds-media slds-comment slds-hint-parent slds-p-around--small" 
+                data-latitude="<%= msg.location.x %>" data-longitude="<%= msg.location.y %>" 
+                data-username="<%- msg.username %>" data-timestamp="<%= msg.relativetimestamp %>">
                 <div class="slds-media__figure">
                   <div class="slds-avatar slds-avatar--circle slds-avatar--small">
                     <img src="/assets/images/avatar1.jpg" />
