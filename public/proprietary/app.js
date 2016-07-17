@@ -131,8 +131,13 @@ function initMap() {
 function sendMessage() {
 	// Super mediocre validation.
 	var messageInput = $('#message-input');
+	var usernameInput = $('#username-input');
 
 	if (messageInput.val() === null || messageInput.val() === '') {
+		return;
+	}
+
+	if (usernameInput.val() === null || usernameInput.val() === '') {
 		return;
 	}
 
@@ -143,12 +148,11 @@ function sendMessage() {
 
 	// Geolocate.
 	navigator.geolocation.getCurrentPosition(function(position) {
-		var messageInput = $('#message-input');
-
 		// Build object to post.
 	    var postData = { 
 	    	latitude: position.coords.latitude,
 	    	longitude: position.coords.longitude,
+	    	username: usernameInput.val(),
 	    	message: messageInput.val()
 	    };
 

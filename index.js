@@ -48,7 +48,9 @@ app.get('/', function(request, response) {
 app.post('/message', function(request, response) {
   // Sanitize input
   request.body.message = validator.escape(request.body.message);
+  request.body.username = validator.escape(request.body.username);
 
+  console.log(request.body.username);
   console.log(request.body.message);
 
   response.send(request.body);
