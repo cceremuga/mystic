@@ -3,6 +3,7 @@ var app = express();
 var pg = require('pg');
 var moment = require('moment');
 var bodyParser = require('body-parser');
+var validator = require('validator');
 
 // Set listening port.
 app.set('port', (process.env.PORT || 5000));
@@ -45,6 +46,11 @@ app.get('/', function(request, response) {
 
 // Posting messages.
 app.post('/message', function(request, response) {
+  // Sanitize input
+  request.body.message = validator.escape(request.body.message);
+
+  console.log(request.body.message);
+
   response.send(request.body);
 });
 

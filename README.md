@@ -1,6 +1,8 @@
 # Pocket Chat
 
-Created for the 7/19/2016 NU Hackathon. A silly geolocation based HTML5 chat app. Literally does nothing yet, it's 8AM give me a break.
+A silly geolocation based HTML5 chat app which allows users to send messages w/ others in a 5 mile radius of their current location.
+
+This was created for a hackathon and as such is full of very poorly done, messy, untested javascript. It is full of hacks all over the place, do not use this in production at all. Seriously.
 
 # License 
 
