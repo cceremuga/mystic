@@ -282,6 +282,7 @@ function loadMessages() {
 				$('#messages-output').html(htmlOutput);
 
 				// Output markers.
+				clearMarkers();
     			addMessagesToMap(data);
 
 				// Attach listeners to new markup.
@@ -297,6 +298,14 @@ function loadMessages() {
         	console.log(errorThrown);
         }
     });
+}
+
+function clearMarkers() {
+  for (var i = 0; i < markersDisplayed.length; i++ ) {
+    markersDisplayed[i].setMap(null);
+  }
+
+  markersDisplayed.length = 0;
 }
 
 $(document).ready(function() {
@@ -328,8 +337,14 @@ $(document).ready(function() {
 	// Miles change.
 	$('#select-miles').change(function() {
 	    numMiles = $(this).val();
+
+	    // Load messages w/ updated miles.
 	    loadMessages();
+
+	    // Get rid of the old circle.
 	    circle.setMap(null);
+
+	    // Add a new circle.
 	    addRadiusFromLastLatLng();
 	});
 });
