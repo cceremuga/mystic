@@ -1,3 +1,11 @@
 html, body {
   background-color: #efefef;
 }
+
+.m-posts article {
+	cursor: pointer;
+}
+
+.m-posts article:hover:not(.slds-theme--alt-inverse) {
+	background: #fafafa;
+}

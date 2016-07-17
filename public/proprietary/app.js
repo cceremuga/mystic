@@ -51,13 +51,13 @@ function addMarkerWithInfoWindow(latitude, longitude, text) {
 }
 
 function highlightMessage(marker) {
+	highlightMessageById('msg-' + marker.title);
+}
+
+function highlightMessageById(id) {
 	// Change highlight.
 	$('.m-posts article').removeClass('slds-theme--alt-inverse');
-	$('#msg-' + marker.title).addClass('slds-theme--alt-inverse');
-
-	// Center on marker.
-	var latLng = marker.getPosition();
-	map.setCenter(latLng);
+	$('#' + id).addClass('slds-theme--alt-inverse');
 }
 
 function addMessageToMap(pos, title) {
@@ -136,4 +136,21 @@ $(document).ready(function() {
 
 	// Size post box.
 	$('#posts-by-date').height(windowHeight - 260 + 'px');
+
+	// Message clicks.
+	$('.m-posts article').click(function() {
+		var clickedElement = $(this);
+		
+		// Latitude / longitude object.
+		var markerLatLng = new google.maps.LatLng({ 
+			lat: clickedElement.data('latitude'), 
+			lng: clickedElement.data('longitude')
+		});
+
+		// Highlight.
+		highlightMessageById(clickedElement.attr('id'));
+
+		// Center on marker.
+		map.setCenter(markerLatLng);
+	});
 });

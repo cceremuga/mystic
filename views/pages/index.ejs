@@ -28,22 +28,23 @@
         <div class="slds-text-heading--medium">Posts By Date</div>
         <div class="m-posts slds-m-top--medium slds-scrollable--y" id="posts-by-date">
           <% messages.forEach(function(msg) { %>
-              <article id="msg-<%= msg.id %>" class="slds-media slds-comment slds-hint-parent slds-p-around--small">
+              <article id="msg-<%= msg.id %>" class="slds-media slds-comment slds-hint-parent slds-p-around--small" data-latitude="<%= msg.location.x %>" data-longitude="<%= msg.location.y %>">
                 <div class="slds-media__figure">
                   <div class="slds-avatar slds-avatar--circle slds-avatar--small">
-                    <a href="javascript:void(0);">
-                      <img src="/assets/images/avatar1.jpg" />
-                    </a>
+                    <img src="/assets/images/avatar1.jpg" />
                   </div>
                 </div>
                 <div class="slds-media__body">
                   <div class="slds-grid slds-grid--align-spread slds-has-flexi-truncate">
-                    <p class="slds-truncate"><a href="javascript:void(0);"><%= msg.username %></a> -
+                    <p class="slds-truncate"><strong><%= msg.username %></strong> -
                       <span class="slds-text-body--small"><%= msg.relativetimestamp %></span>
                     </p>
                   </div>
                   <div class="slds-comment__content slds-text-longform">
                     <%= msg.message %>
+                  </div>
+                  <div class="slds-m-top--xx-small slds-text-body--small">
+                    <span class="slds-badge">Debug: <%= msg.ip %> / <%= msg.location.x %> / <%= msg.location.y %></span>
                   </div>
                 </div>
               </article>
