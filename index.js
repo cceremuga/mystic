@@ -4,6 +4,7 @@ var pg = require('pg');
 var moment = require('moment');
 var bodyParser = require('body-parser');
 var validator = require('validator');
+var url = require('url');
 
 // Set listening port.
 app.set('port', (process.env.PORT || 5000));
@@ -23,7 +24,13 @@ app.get('/', function(request, response) {
   response.render('pages/index'); 
 });
 
+// jSON message retrieval endpoint.
 app.get('/messages', function(request, response) {
+  var url_parts = url.parse(request.url, true);
+  var query = url_parts.query;
+
+  console.log(query);
+
   pg.connect(process.env.DATABASE_URL, function(err, client, done) {
   	// Retrieve all messages.
   	client.query('SELECT * FROM messages ORDER BY Id DESC LIMIT 10', function(err, result) {
@@ -46,7 +53,7 @@ app.get('/messages', function(request, response) {
   });  
 });
 
-// Posting messages.
+// Inserting new message endpoint.
 app.post('/message', function(request, response) {
   // Sanitize input
   request.body.message = validator.escape(request.body.message);

@@ -254,10 +254,10 @@ function loadMessages() {
 	var spinner = $('#m-spinner');
 	spinner.show();
 
-	console.log(lastLatLng);
-
 	$.ajax({
 		type: 'GET',
+		data: lastLatLng,
+        contentType: 'application/json',
         url: '/messages',						
         success: function(data) {
         	if (data.length > 0) {
