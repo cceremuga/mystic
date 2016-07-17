@@ -3,6 +3,8 @@ var lastOpened;
 var rtime;
 var timeout = false;
 var delta = 200;
+var markersDisplayed = [];
+var lastLatLng = { };
 
 // Centers the map.
 function centerOnPoint(latitude, longitude) {
@@ -61,7 +63,7 @@ function addMessageToMap(pos, title) {
         position: pos, 
         map: map,
         icon: markerImage,
-        title: title    
+        title: title
     }); 
 
     // Add click listener.
@@ -73,21 +75,24 @@ function addMessageToMap(pos, title) {
     markersDisplayed.push(marker);
 }
 
-function addMessagesToMap() {
+function addMessagesToMap(data) {
 	// Adds all messages in the page as map markers with a Pokeball.
-	for (var i = 0; i < messagesToDisplay.length; i++) {
+	$.each(data, function(index, item) {
 		// Latitude / longitude object.
 		var markerLatLng = new google.maps.LatLng({ 
-			lat: messagesToDisplay[i].x, 
-			lng: messagesToDisplay[i].y
+			lat: item.location.x, 
+			lng: item.location.y
 		});
 
-		addMessageToMap(markerLatLng, messagesToDisplay[i].id);
-	}
+		addMessageToMap(markerLatLng, item.id.toString());
+	});
 }
 
 // Initializes the map w/ geolocation.
 function initMap() {
+	var spinner = $('#m-spinner');
+	spinner.show();
+
 	// Build the map.
 	map = new google.maps.Map(document.getElementById('posts-by-location'), {
 		center: { lat: 41.850033, lng: -87.6500523 },
@@ -101,6 +106,12 @@ function initMap() {
 	navigator.geolocation.getCurrentPosition(function(position) {
 	    // Center.
 	    centerOnPoint(position.coords.latitude, position.coords.longitude);
+
+	    // Set for haversine AJAX request.
+	    lastLatLng = {
+	    	latitude: position.coords.latitude,
+	    	longitude: position.coords.longitude
+	    };
 
 	    // Add circle of 5 mile radius.
 		var circleCenter = new google.maps.LatLng({ 
@@ -121,12 +132,10 @@ function initMap() {
 	    // Zoom.
     	map.setZoom(13);
 
-    	// Add messages.
-    	addMessagesToMap();
-
-	    // Hide loader.
-	    $('#m-loader').fadeOut();
+	    // Initial messages load
+    	loadMessages();
 	}, function error(msg) { 
+		spinner.hide();
 		// Catastrophic failure.
 		console.log(msg);
   	}, {
@@ -151,7 +160,6 @@ function sendMessage() {
 
 	// Start the process.
 	var spinner = $('#m-spinner');
-
 	spinner.show();
 
 	// Geolocate.
@@ -164,15 +172,21 @@ function sendMessage() {
 	    	message: messageInput.val()
 	    };
 
+	    // Set last lat lng for re-retrieval.
+	    lastLatLng = {
+	    	latitude: position.coords.latitude,
+	    	longitude: position.coords.longitude
+	    };
+
 	    // Post to API.
-	    $.ajax( {
+	    $.ajax({
 			type: 'POST',
 			data: JSON.stringify(postData),
 	        contentType: 'application/json',
             url: '/message',						
             success: function(data) {
                 if (data === 'Success!') {
-                	location.reload();
+                	loadMessages();
                 }
 
 			    messageInput.val('');
@@ -217,10 +231,7 @@ function resizeClient() {
 	$('#posts-by-date').height(windowHeight - 260 + 'px');
 }
 
-$(document).ready(function() {
-	// Resize the usable UI.
-	resizeClient();
-
+function attachListeners() {
 	// Message clicks.
 	$('.m-posts article').click(function() {
 		var clickedElement = $(this);
@@ -237,6 +248,50 @@ $(document).ready(function() {
 		// Center on marker.
 		map.setCenter(markerLatLng);
 	});
+}
+
+function loadMessages() {
+	var spinner = $('#m-spinner');
+	spinner.show();
+
+	console.log(lastLatLng);
+
+	$.ajax({
+		type: 'GET',
+        url: '/messages',						
+        success: function(data) {
+        	if (data.length > 0) {
+	            var source   = $('#message-template').html();
+				var template = Handlebars.compile(source);
+				var dataForTemplate = {
+					messages: data
+				}
+				var htmlOutput = template(dataForTemplate);
+
+				// Output compiled markup.
+				$('#messages-output').html(htmlOutput);
+
+				// Output markers.
+    			addMessagesToMap(data);
+
+				// Attach listeners to new markup.
+				attachListeners();
+
+				// Hide the "no messages" message.
+	            $('#no-messages').hide();
+	        }
+
+            spinner.hide();
+        }, error: function(jqXHR, textStatus, errorThrown) {
+        	spinner.hide();
+        	console.log(errorThrown);
+        }
+    });
+}
+
+$(document).ready(function() {
+	// Resize the usable UI.
+	resizeClient();
 
 	// Message send.
 	$('#post-button').click(function(e) {

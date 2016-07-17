@@ -20,6 +20,10 @@ app.set('view engine', 'ejs');
 
 // Index page.
 app.get('/', function(request, response) {
+  response.render('pages/index'); 
+});
+
+app.get('/messages', function(request, response) {
   pg.connect(process.env.DATABASE_URL, function(err, client, done) {
   	// Retrieve all messages.
   	client.query('SELECT * FROM messages ORDER BY Id DESC LIMIT 10', function(err, result) {
@@ -28,17 +32,15 @@ app.get('/', function(request, response) {
   	  // Throw all errors into console / page.
   	  if (err) {
   	  	console.error(err);
-  	  	response.send("Error " + err);
+  	  	response.send("Error!");
   	  } else {
   	  	// Do nasty stuff with dates here for now...
   	  	for (var i = 0; i < result.rows.length; i++) {
   	  		result.rows[i].relativetimestamp = moment(result.rows[i].timestamp).fromNow();
   	  	}
 
-  	  	// Render the home page with the records.
-  	  	response.render('pages/index', {
-  	  		messages: result.rows
-  	  	});
+  	  	// Send jSON response.
+  	  	response.send(result.rows);
   	  }
   	});
   });  

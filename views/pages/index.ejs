@@ -5,20 +5,6 @@
       <div class="slds-panel__section">
         <div class="slds-text-heading--medium">Posts By Location</div>
         <div class="slds-m-top--medium" id="posts-by-location"></div>
-        <script>
-            var messagesToDisplay = [];
-            var markersDisplayed = [];
-
-            <% messages.forEach(function(msg) { %>
-              var mapPoint = {
-                id: '<%= msg.id %>',
-                x: <%= msg.location.x %>,
-                y: <%= msg.location.y %>
-              };
-
-              messagesToDisplay.push(mapPoint);
-            <% }); %>
-        </script>
       </div>
     </div>
   </div>
@@ -27,10 +13,14 @@
       <div class="slds-panel__section">
         <div class="slds-text-heading--medium">Posts By Date</div>
         <div class="m-posts slds-m-top--medium slds-scrollable--y" id="posts-by-date">
-          <% messages.forEach(function(msg) { %>
-              <article id="msg-<%= msg.id %>" class="slds-media slds-comment slds-hint-parent slds-p-around--small" 
-                data-latitude="<%= msg.location.x %>" data-longitude="<%= msg.location.y %>" 
-                data-username="<%- msg.username %>" data-timestamp="<%= msg.relativetimestamp %>">
+          <div id="no-messages" class="slds-box slds-theme--info">
+            <p>There are no messages to display within a 5 mile radius around you. You could be the first!</p>
+          </div>
+          <script id="message-template" type="text/x-handlebars-template">
+              {{#each messages}}
+              <article id="msg-{{id}}" class="slds-media slds-comment slds-hint-parent slds-p-around--small" 
+                data-latitude="{{location.x}}" data-longitude="{{location.y}}" 
+                data-username="{{username}}" data-timestamp="{{relativetimestamp}}">
                 <div class="slds-media__figure">
                   <div class="slds-avatar slds-avatar--circle slds-avatar--small">
                     <img src="/assets/images/avatar1.jpg" />
@@ -38,19 +28,21 @@
                 </div>
                 <div class="slds-media__body">
                   <div class="slds-grid slds-grid--align-spread slds-has-flexi-truncate">
-                    <p class="slds-truncate"><strong><%- msg.username %></strong> -
-                      <span class="slds-text-body--small"><%= msg.relativetimestamp %></span>
+                    <p class="slds-truncate"><strong>{{{username}}}</strong> -
+                      <span class="slds-text-body--small">{{relativetimestamp}}</span>
                     </p>
                   </div>
                   <div class="slds-comment__content slds-text-longform">
-                    <%- msg.message %>
+                    {{{message}}}
                   </div>
                   <div class="slds-m-top--xx-small slds-text-body--small">
-                    <span class="slds-badge">Debug: <%= msg.ip %> / <%= msg.location.x %> / <%= msg.location.y %></span>
+                    <span class="slds-badge">Debug: {{ip}} / {{location.x}} / {{location.y}}</span>
                   </div>
                 </div>
               </article>
-          <% }); %>
+              {{/each}}
+          </script>
+          <div id="messages-output"></div>
         </div>
         <div class="slds-publisher slds-publisher--discussion slds-m-top--medium">
           <label for="username-input" class="slds-assistive-text">Username</label>
