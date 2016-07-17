@@ -1,5 +1,8 @@
 var map;
 var lastOpened;
+var rtime;
+var timeout = false;
+var delta = 200;
 
 // Centers the map.
 function centerOnPoint(latitude, longitude) {
@@ -191,15 +194,29 @@ function sendMessage() {
 	});
 }
 
-// Used to size boxes in the app.
-$(document).ready(function() {
+function resizeend() {
+    if (new Date() - rtime < delta) {
+        setTimeout(resizeend, delta);
+    } else {
+        timeout = false;
+        resizeClient();
+    }               
+}
+
+function resizeClient() {
 	var windowHeight = window.innerHeight;
 
 	// Size map.
 	$('#posts-by-location').height(windowHeight - 212 + 'px');
+	google.maps.event.trigger(map, 'resize');
 
 	// Size post box.
 	$('#posts-by-date').height(windowHeight - 260 + 'px');
+}
+
+$(document).ready(function() {
+	// Resize the usable UI.
+	resizeClient();
 
 	// Message clicks.
 	$('.m-posts article').click(function() {
@@ -228,6 +245,15 @@ $(document).ready(function() {
 	    if(e.which == 13) {
 	    	e.preventDefault();
 	        sendMessage();
+	    }
+	});
+
+	// Resize hacks
+	$(window).resize(function() {
+	    rtime = new Date();
+	    if (timeout === false) {
+	        timeout = true;
+	        setTimeout(resizeend, delta);
 	    }
 	});
 });
