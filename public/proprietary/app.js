@@ -208,7 +208,10 @@ function resizeClient() {
 
 	// Size map.
 	$('#posts-by-location').height(windowHeight - 212 + 'px');
-	google.maps.event.trigger(map, 'resize');
+
+	if (typeof google !== 'undefined') {
+		google.maps.event.trigger(map, 'resize');
+	}
 
 	// Size post box.
 	$('#posts-by-date').height(windowHeight - 260 + 'px');
